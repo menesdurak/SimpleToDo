@@ -7,8 +7,8 @@
     <td>Update</td>
   </tr>
   <tr>
-    <td><img src="https://github.com/menesdurak/SimpleToDo/assets/76568329/1b294f2a-ba23-4acc-b45e-bdb3a187b8b6" width="300px" height="500px"></td>
-    <td><img src="https://github.com/menesdurak/SimpleToDo/assets/76568329/fa22e20c-386c-49fc-b226-4ba06ac9f379" width="300px" height="500px"></td>
-    <td><img src="https://github.com/menesdurak/SimpleToDo/assets/76568329/34e2697b-307d-49e4-a82c-fa2dd03b05d6" width="300px" height="500px"></td>
+    <td><img src="https://github.com/menesdurak/SimpleToDo/assets/76568329/b6f5302d-5088-43ab-9bf0-3c440d2f04a6" width="300px" height="500px"></td>
+    <td><img src="https://github.com/menesdurak/SimpleToDo/assets/76568329/d5c511da-e09f-464b-a857-5c43bc5c33c0" width="300px" height="500px"></td>
+    <td><img src="https://github.com/menesdurak/SimpleToDo/assets/76568329/2eff3373-d531-42a1-ac49-21ca25337ad0" width="300px" height="500px"></td>
    </tr>  
 </table>
