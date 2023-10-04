@@ -13,7 +13,7 @@ data class ToDo(
     val name: String,
     val note: String,
     val priority: Priority = Priority.LOW,
-    val date: String = SimpleDateFormat("dd/M/yyyy hh:mm:ss").format(Date())
+    val date: String = SimpleDateFormat("dd/M/yyyy hh:mm:ss").format(Date()),
 ) : Serializable
 
 enum class Priority {

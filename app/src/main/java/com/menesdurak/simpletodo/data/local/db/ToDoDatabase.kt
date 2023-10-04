@@ -8,7 +8,7 @@ import com.menesdurak.simpletodo.data.local.dao.ToDoDao
 import com.menesdurak.simpletodo.data.local.entity.ToDo
 
 @Database(entities = [ToDo::class], version = 1)
-abstract class ToDoDatabase: RoomDatabase() {
+abstract class ToDoDatabase : RoomDatabase() {
 
     abstract fun getToDoDao(): ToDoDao
 
