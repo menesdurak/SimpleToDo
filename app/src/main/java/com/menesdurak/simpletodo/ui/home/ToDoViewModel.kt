@@ -22,11 +22,11 @@ class ToDoViewModel @Inject constructor(
     private val insertToDoUseCase: InsertToDoUseCase,
     private val updateToDoUseCase: UpdateToDoUseCase,
     private val deleteToDoUseCase: DeleteToDoUseCase,
-    private val searchToDoUseCase: SearchToDoUseCase
+    private val searchToDoUseCase: SearchToDoUseCase,
 ) : ViewModel() {
 
     private val _homeUiState = MutableLiveData<HomeUiState>()
-    val homeUiState :LiveData<HomeUiState> = _homeUiState
+    val homeUiState: LiveData<HomeUiState> = _homeUiState
 
     fun getAllToDos() {
         viewModelScope.launch {
