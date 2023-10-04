@@ -9,6 +9,7 @@ import com.menesdurak.simpletodo.data.local.entity.ToDo
 import com.menesdurak.simpletodo.domain.usecase.DeleteToDoUseCase
 import com.menesdurak.simpletodo.domain.usecase.GetAllToDosUseCase
 import com.menesdurak.simpletodo.domain.usecase.InsertToDoUseCase
+import com.menesdurak.simpletodo.domain.usecase.SearchToDoUseCase
 import com.menesdurak.simpletodo.domain.usecase.UpdateToDoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -21,6 +22,7 @@ class ToDoViewModel @Inject constructor(
     private val insertToDoUseCase: InsertToDoUseCase,
     private val updateToDoUseCase: UpdateToDoUseCase,
     private val deleteToDoUseCase: DeleteToDoUseCase,
+    private val searchToDoUseCase: SearchToDoUseCase
 ) : ViewModel() {
 
     private val _homeUiState = MutableLiveData<HomeUiState>()
@@ -29,6 +31,26 @@ class ToDoViewModel @Inject constructor(
     fun getAllToDos() {
         viewModelScope.launch {
             getAllToDosUseCase().collectLatest {
+                when (it) {
+                    Response.Loading -> {
+                        _homeUiState.postValue(HomeUiState.Loading)
+                    }
+
+                    is Response.Success -> {
+                        _homeUiState.postValue(HomeUiState.Success(it.result!!))
+                    }
+
+                    is Response.Error -> {
+                        _homeUiState.postValue(HomeUiState.Error(it.exception))
+                    }
+                }
+            }
+        }
+    }
+
+    fun searchToDos(word: String) {
+        viewModelScope.launch {
+            searchToDoUseCase(word).collectLatest {
                 when (it) {
                     Response.Loading -> {
                         _homeUiState.postValue(HomeUiState.Loading)

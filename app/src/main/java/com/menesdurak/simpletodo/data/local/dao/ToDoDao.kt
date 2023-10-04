@@ -21,4 +21,7 @@ interface ToDoDao {
 
     @Query("SELECT * FROM toDoS")
     suspend fun getAllToDos(): List<ToDo>
+
+    @Query("SELECT * FROM toDoS WHERE name like '%' || :word || '%' OR note like '%' || :word || '%'")
+    suspend fun searchToDos(word: String): List<ToDo>
 }

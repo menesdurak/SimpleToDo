@@ -27,4 +27,12 @@ class LocalDataSourceImpl @Inject constructor(private val toDoDao: ToDoDao) : Lo
             Response.Error(e)
         }
 
+    override suspend fun searchToDos(word: String): Response<List<ToDo>> =
+        try {
+            val response = toDoDao.searchToDos(word)
+            Response.Success(response)
+        } catch (e: Exception) {
+            Response.Error(e)
+        }
 }
+

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -40,11 +41,21 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val toDo = ToDo(name = "Musluk", note = "Damlayan musluğu tamir ettir.", priority = Priority.HIGH)
-//        toDoViewModel.insertToDo(toDo)
-//        val toDo2 = ToDo(id = 1, name = "Araba", note = "Benzin Al")
-//        toDoViewModel.deleteToDo(toDo2)
+
         observeUiState()
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchToDo(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                searchToDo(newText)
+                return false
+            }
+
+        })
 
         binding.fabAdd.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToAddToDoFragment()
@@ -86,5 +97,9 @@ class HomeFragment : Fragment() {
                 toDoAdapter.removeToDo(position)
             }.show()
 
+    }
+
+    private fun searchToDo(word: String) {
+        toDoViewModel.searchToDos(word)
     }
 }

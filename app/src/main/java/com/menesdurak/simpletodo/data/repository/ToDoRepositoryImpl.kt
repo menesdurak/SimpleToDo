@@ -41,4 +41,23 @@ class ToDoRepositoryImpl @Inject constructor(private val localDataSource: LocalD
             }
         }
     }
+
+    override suspend fun searchToDos(word: String): Flow<Response<List<ToDo>>> {
+        return flow {
+            emit(Response.Loading)
+            when (val response = localDataSource.searchToDos(word)) {
+                is Response.Success -> {
+                    emit(Response.Success(response.result))
+                }
+
+                is Response.Error -> {
+                    emit(Response.Error(response.exception))
+                }
+
+                else -> {
+                    Log.e("Error", "Ne yaptin dostum?")
+                }
+            }
+        }
+    }
 }
