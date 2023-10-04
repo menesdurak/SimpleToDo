@@ -8,7 +8,10 @@ import com.menesdurak.simpletodo.data.local.entity.Priority
 import com.menesdurak.simpletodo.data.local.entity.ToDo
 import com.menesdurak.simpletodo.databinding.ItemTodoBinding
 
-class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoHolder>() {
+class ToDoAdapter(
+    private val onItemClick: (ToDo) -> Unit,
+    private val onItemLongClick: (Int, ToDo) -> Unit
+) : RecyclerView.Adapter<ToDoAdapter.ToDoHolder>() {
 
     private val toDos = mutableListOf<ToDo>()
 
@@ -25,7 +28,17 @@ class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoHolder>() {
                         Priority.MEDIUM -> { linlayMain.setBackgroundColor(root.resources.getColor(R.color.medium_priority, null)) }
                         Priority.HIGH -> { linlayMain.setBackgroundColor(root.resources.getColor(R.color.high_priority, null)) }
                     }
+
+                    root.setOnClickListener {
+                        onItemClick.invoke(toDo)
+                    }
+
+                    root.setOnLongClickListener {
+                        onItemLongClick.invoke(adapterPosition, toDo)
+                        true
+                    }
                 }
+
             }
     }
 
@@ -44,5 +57,10 @@ class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoHolder>() {
         toDos.clear()
         toDos.addAll(newList)
         notifyDataSetChanged()
+    }
+
+    fun removeToDo(position: Int) {
+        toDos.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

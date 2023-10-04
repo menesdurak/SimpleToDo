@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.menesdurak.simpletodo.R
 import com.menesdurak.simpletodo.data.local.entity.Priority
 import com.menesdurak.simpletodo.data.local.entity.ToDo
@@ -20,7 +22,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val toDoViewModel by viewModels<ToDoViewModel>()
-    private val toDoAdapter by lazy { ToDoAdapter() }
+    private val toDoAdapter by lazy { ToDoAdapter(::onItemClick, ::onItemLongClick) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +45,11 @@ class HomeFragment : Fragment() {
 //        val toDo2 = ToDo(id = 1, name = "Araba", note = "Benzin Al")
 //        toDoViewModel.deleteToDo(toDo2)
         observeUiState()
+
+        binding.fabAdd.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToAddToDoFragment()
+            findNavController().navigate(action)
+        }
     }
 
     private fun observeUiState() {
@@ -65,5 +72,19 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun onItemClick(toDo: ToDo) {
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailToDoFragment(toDo)
+        findNavController().navigate(action)
+    }
+
+    private fun onItemLongClick(position: Int, toDo: ToDo) {
+        Snackbar.make(requireView(), "Do you want to delete ${toDo.name}?", Snackbar.LENGTH_SHORT)
+            .setAction("Yes") {
+                toDoViewModel.deleteToDo(toDo)
+                toDoAdapter.removeToDo(position)
+            }.show()
+
     }
 }

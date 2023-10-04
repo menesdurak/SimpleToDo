@@ -9,5 +9,26 @@
         android:id="@+id/homeFragment"
         android:name="com.menesdurak.simpletodo.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addToDoFragment"
+            app:destination="@id/addToDoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailToDoFragment"
+            app:destination="@id/detailToDoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addToDoFragment"
+        android:name="com.menesdurak.simpletodo.ui.add.AddToDoFragment"
+        android:label="fragment_add_to_do"
+        tools:layout="@layout/fragment_add_to_do" />
+    <fragment
+        android:id="@+id/detailToDoFragment"
+        android:name="com.menesdurak.simpletodo.ui.detail.DetailToDoFragment"
+        android:label="fragment_detail_to_do"
+        tools:layout="@layout/fragment_detail_to_do" >
+        <argument
+            android:name="toDo"
+            app:argType="com.menesdurak.simpletodo.data.local.entity.ToDo" />
+    </fragment>
 </navigation>
